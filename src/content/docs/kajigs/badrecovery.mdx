@@ -1,0 +1,27 @@
+---
+title: Badapple-Icarus Unenrollment Exploit
+---
+
+# Badrecovery
+
+## Info
+Badrecovery is an unenrollment exploit for any Kernver 3 devices.
+
+## Requirements:
+
+* **Any Kernver 3 Chromebook**: To check your kernver, see [Kernver Info](/kajigs/kernverinfo).
+* **A Badrecovery Image**
+* A **PERSONAL** laptop.
+
+# Using Badrecovery
+
+* Download a v124 or lower recovery image for your board from [chrome100](https://chrome100.dev).
+* Extract the image.
+* Now use either the [Web Builder](https://binbashbanana.github.io/badrecovery/builder.html) OR the [Script](https://github.com/BinBashBanana/badrecovery?tab=readme-ov-file#preparing-an-image)
+* Once you have the image, flash it on a USB drive using `dd`, [Balena Etcher](https://www.balena.io/etcher/), or [Rufus](https://rufus.ie/).
+* Boot into Recovery Mode by holding the `ESC + Refresh + Power` buttons.   
+* Plug in your USB drive and wait for the Badrecovery image to run the payload.
+* Once in the OOBE, continue on with setup, and you *should* be unenrolled!
+
+# Credits
+* [Check Repo](https://github.com/BinBashBanana/badrecovery?tab=readme-ov-file#credits)
