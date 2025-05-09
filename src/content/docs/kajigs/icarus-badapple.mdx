@@ -1,0 +1,85 @@
+---
+title: Badapple-Icarus Unenrollment Exploit
+---
+
+# Badapple-Icarus
+
+## Info
+Badapple-Icarus is an unenrollment exploit for Kernver 4, keyrolled devices, NEW UI, and disk layout v3 devices.
+
+If you have a non-keyrolled device (unable to boot shims), see [Icarus](https://docs.titaniumnetwork.org/kajigs/Icarus).
+
+## Requirements:
+- **Kernver 4**: To check your Kernver, enter Recovery Mode and press the `TAB` key. See [Kernver Info](/kajigs/kernverinfo)
+- **Version V125 - V127**: You can upgrade/downgrade using images from [Chrome100](https://chrome100.dev).
+- **Keyrolled Chromebook** with New UI.
+- **Personal Computer** (no Crostini, no VMs, etc.).
+
+## USB-LESS METHOD (NEEDS WIFI):
+
+1. Enter Badapple by booting into Recovery Mode and pressing `ESC + Refresh + Power`.
+2. Go into Developer Mode by pressing `Ctrl + D`.
+3. Once on the Developer Mode block screen, press `ESC + Refresh + Power` again.
+4. Select the "Internet Recovery" option.
+5. Connect to Wi-Fi **ONLY** - do not proceed further.
+6. Press `Ctrl + Alt + F3` to open a shell.
+7. Run the following command:
+   ```bash
+   curl -SLk cdn.fanqyxl.net/icarus_ota.sh | sh
+   ```
+8. Wait for the script to finish, then continue to the **Continuing On** section instructions.
+
+## USB METHOD (NO WIFI):
+
+1. Download the Badapple-Icarus [image](https://cdn.fanqyxl.net/icarus-ba.img).
+2. Flash the image onto a USB drive using one of:
+   - `dd` command
+   - [Balena Etcher](https://www.balena.io/etcher/)
+   - [Rufus](https://rufus.ie/)
+3. Enter Badapple by booting into Recovery Mode and pressing `ESC + Refresh + Power`.
+4. Go into Developer Mode by pressing `Ctrl + D`.
+5. Once on the Developer Mode block screen, press `ESC + Refresh + Power` again.
+6. Select the "Internet Recovery" option.
+7. Press `Ctrl + Alt + F3` to open a shell.
+8. Plug in your USB drive.
+9. Run `fdisk -l` to find your USB drive identifier.
+10. Mount the image with:
+    ```bash
+    mkdir /icarus && mount /dev/sdX /icarus
+    ```
+    Replace X with your USB identifier (e.g., /dev/sda)
+
+### Continuing On:
+
+1. Once the payload is done and you're back at the OOBE (Out-of-Box Experience):
+   - Connect your Chromebook to Wi-Fi using the "Quick Settings" menu, but **do not continue** with the OOBE.
+2. Start your server and change your connection settings to "Manual":
+   - Set the "Secure HTTP" IP address to `152.53.243.119`
+   - Set the "Secure HTTP" port to `8126`
+   - **Note**: Using a public server is a security risk. Host your own server using the instructions in the "Advanced" section.
+3. Click **Save**.
+4. Continue with the OOBE, and Icarus should unenroll your device!
+
+<details>
+<summary>Device still enrolling or getting "Can't reach Google"?</summary>
+
+- Ensure that Icarus Lite is receiving and handling the ChromeOS device's requests. Check the terminal or window where Icarus Lite is running for any output beyond "Icarus LITE is running on...". If no additional output is present:
+  - Re-run the Icarus shim and ensure the target ChromeOS device and the device hosting the proxy are on the **same Wi-Fi network**.
+  - Ensure the shim used on the target ChromeOS device was built with the same CA (Certificate Authority) used to generate the SSL certificates.
+  - If you're using a prebuilt shim and don't know what CA was used, consider building your own shim and SSL certificates if nothing else works.
+  - Note: Being above ChromeOS v130 or below ChromeOS v125 will cause the target ChromeOS device to reject the connection to the MiniServer, resulting in the "Can't reach Google" screen.
+
+</details>
+
+## Advanced:
+
+- [Hosting Your Own Icarus Lite Server](https://github.com/cosmicdevv/Icarus-Lite)
+- [Building Badapple-Icarus Image](https://github.com/applefritter-inc/BadApple-icarus?tab=readme-ov-file#build-a-badapple-icarus-image)
+- [Building Manual Certs](https://github.com/cosmicdevv/Icarus-Lite?tab=readme-ov-file#ssl-certificates)
+
+## Credits:
+- Original Icarus Devs ([See Repo](https://github.com/fanqyxl/icarus?tab=readme-ov-file#original-credits))
+- [Icarus-Lite](https://github.com/cosmicdevv/Icarus-Lite)
+- [Appleflyer](https://github.com/appleflyerv3)
+- [Fanqyxl](https://fanqyxl.net): Hosting Icarus Lite public server and generating certs
+- [All other contributors](https://github.com/applefritter-inc/BadApple-icarus?tab=readme-ov-file#credits)
