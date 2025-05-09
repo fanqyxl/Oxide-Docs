@@ -1,0 +1,55 @@
+# Icarus
+
+## Info
+Icarus is an unenrollment exploit for Kernver 4 and non-keyrolled devices.
+
+If you have a keyrolled device (unable to boot shims), see [Badapple-Icarus](https://docs.titaniumnetwork.org/kajigs/badapple-Icarus).
+
+## Requirements:
+- **Kernver 4**: To check your Kernver, enter Recovery Mode and press the `TAB` key. See this [example](https://cdn.fanqyxl.net/demo.png).
+- **Version V125 - V127**: You can upgrade/downgrade using images from [Chrome100](https://chrome100.dev).
+- A **NON-Keyrolled Chromebook**.
+- A **PERSONAL** laptop (no Crostini, no VMs, etc.).
+- A **Brain**.
+
+## Steps:
+
+1. Grab a shim for your board from [fanqyxl's file host](https://dl.fanqyxl.net/ChromeOS/Prebuilts/Icarus/).
+2. Flash the shim onto a minimum 8GB USB drive using `dd`, [Balena Etcher](https://www.balena.io/etcher/), or [Rufus](https://rufus.ie/).
+3. Boot into Recovery Mode by holding the `ESC + Refresh + Power` buttons.
+4. Enter Developer Mode by pressing `Ctrl + D`.
+5. Once on the Developer Mode block screen, press `ESC + Refresh + Power` again.
+6. Plug in your USB drive and wait for the shim to run the payload.
+
+### Continuing On:
+
+1. Once the payload is done and you're back at the OOBE (Out-of-Box Experience):
+   - Connect your Chromebook to Wi-Fi using the "Quick Settings" menu, but **do not continue** with the OOBE.
+2. Start your server and change your connection settings to "Manual":
+   - Set the "Secure HTTP" IP address to `152.53.243.119`.
+   - Set the "Secure HTTP" port to `8126`.
+   - **Note**: Using a public server is a security risk. Host your own server using the instructions in the "Advanced" section.
+3. Click **Save**.
+4. Continue with the OOBE, and Icarus should unenroll your device!
+
+<details>
+<summary>Device still enrolling or getting "Can't reach Google"?</summary>
+
+  - Ensure the shim used on the target ChromeOS device was built with the same CA (Certificate Authority) used to generate the SSL certificates.
+  - If you're using a prebuilt shim and don't know what CA was used, consider building your own shim and SSL certificates if nothing else works.
+  - Note: Being above ChromeOS v130 or below ChromeOS v125 will cause the target ChromeOS device to reject the connection to the MiniServer, resulting in the "Can't reach Google" screen.
+  - If nothing works, run your own icarus server.
+
+</details>
+
+## Advanced:
+
+- [Hosting Your Own Icarus Lite Server](https://github.com/cosmicdevv/Icarus-Lite)
+- [Building Shims](https://github.com/fanqyxl/icarus?tab=readme-ov-file#making-your-own-shims)
+- [Building Manual Certs](https://github.com/cosmicdevv/Icarus-Lite?tab=readme-ov-file#ssl-certificates)
+
+## Credits:
+- [Icarus-Lite](https://github.com/cosmicdevv/Icarus-Lite)
+- [Icarus Repo](https://github.com/fanqyxl/icarus)
+- [Fanqyxl](https://fanqyxl.net): Hosting Icarus Lite public server and building shims.
+- [Kxtz](https://kxtz.dev): Building new Icarus certs.
